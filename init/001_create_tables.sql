@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS web_logs
 (
     timestamp     DateTime,
     user_id       UInt64,
-    url           String,
+    url           LowCardinality(String),
     response_time UInt32,
     status_code   UInt16
 )
