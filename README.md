@@ -35,7 +35,7 @@
 
 5. SQL запросы.  
    1.Общее количество запросов за каждый день.  
-   Выводы: Нагрузка равномерная по дням
+   Выводы: Нагрузка равномерная по дням, кроме текущего дня и 7 дней назад, там логов меньше.
    ```bash
     docker exec -i clickhouse_logs_analysis clickhouse-client --multiquery < scripts/sql/counts_by_days.sql
    ```  
@@ -56,15 +56,16 @@
    ```
 
 6. Оптимизации:  
-  1.Партиционирование:  
-    PARTITION BY toDate(timestamp)  
-  2.Сортировка:  
-    ORDER BY (timestamp, url)  
-  3.LowCardinality:  
-    url LowCardinality(String)
+  1.Партиционирование:  ```PARTITION BY toDate(timestamp)```  
+  2.Сортировка:  ```ORDER BY (timestamp, url)```  
+  3.LowCardinality:  ```url LowCardinality(String)```  
+7. TTL. Удаление старых записей:  ```scripts/sql/ttl.sql```  
+8. Materialized View для агрегации данных по дням и url адресам:  ```scripts/sql/materialized_view.sql```  
 
-7. TTL. Удаление старых записей:  
-  scripts/sql/ttl.sql
-
-8. Materialized View для агрегации данных по дням и url адресам:  
-  scripts/sql/materialized_view.sql
+9. Графики в grafana
+   ```
+    http://localhost:3000
+    логин: admin
+    пароль: admin
+    Дашборд: ClickHouse Logs -> Web logs dashboard
+   ```
