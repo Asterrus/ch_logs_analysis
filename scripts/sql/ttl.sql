@@ -1,0 +1,2 @@
+ALTER TABLE web_logs
+MODIFY TTL timestamp + INTERVAL 30 DAY;

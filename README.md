@@ -62,3 +62,9 @@
     ORDER BY (timestamp, url)  
   3.LowCardinality:  
     url LowCardinality(String)
+
+7. TTL. Удаление старых записей:  
+  scripts/sql/ttl.sql
+
+8. Materialized View для агрегации данных по дням и url адресам:  
+  scripts/sql/materialized_view.sql
